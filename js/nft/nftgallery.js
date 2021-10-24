@@ -23,35 +23,25 @@ $(function () {
 		var rows = $('<div class="row row-cols-4"></div>')
 
 		$.each(nftJson, function (_, nftElement) {
-			var thumbnail = $('<img class="card-img-top">')
-				.prop('loading', 'lazy')
-				.prop('width', 250)
-				.prop('height', 250)
-				.prop('src', nftElement.image)
-				.prop('alt', nftElement.name)
-
-			var cardBody = $(`<div class="card-body">
-					<h5 class="card-title">Kid # ${nftElement['01 Kid Number']}</h5>
-					<p class="card-text">
-					 ${nftElement['03 Camp']} - ${nftElement['04 Role']}
-					</p>
-					<small class="text-muted">${nftElement['00 Episode']}</small>
-				</div>`)
-
-			var btn = $('<a class="btn btn btn-sm btn-outline-secondary">More</a>')
-				.prop('title', nftElement.name)
-				.prop('href', nftElement.image)
-				.attr('data-gallery', '')
-
-			var card = $('<div class="card shadow-sm">')
-				.append(thumbnail)
-				.append(cardBody)
-				//.append(btn)
-
-			var col = $('<div class="col"></div>')
-				.append(card)
-
-			rows.append(col)
+			var card = $(`
+			<div class="col">
+				<div class="card shadow-sm">
+					<img class="card-img-top" loading="lazy" 
+					src="${nftElement.image}" 
+					alt="${nftElement.name}" 
+					width="250" height="250">
+					<div class="card-body">
+						<h5 class="card-title">Kid # ${nftElement['01 Kid Number']}</h5>
+						<p class="card-text">
+						${nftElement['03 Camp']} - ${nftElement['04 Role']}
+						</p>
+						<small class="text-muted">${nftElement['00 Episode']}</small>
+					</div>
+					<a class="btn btn btn-sm" href="#">More</a>
+				</div>
+			</div>`
+			)
+			rows.append(card)
 		})
 		return rows
 	};
@@ -59,7 +49,7 @@ $(function () {
 	var EXCLUDE_FROM_SEARCH = [
 		"image", "15 Website","16 Copyright",
 		"00 Episode_perc","01 Kid Number_perc",
-		,"02 Region_perc","03 Camp_perc",
+		"02 Region_perc","03 Camp_perc",
 		"04 Role_perc","05 Body_perc",
 		"06 Clothing_perc","07 Hat_perc","08 Neck_perc",
 		"09 Accessory_perc","10 Mask_perc",
