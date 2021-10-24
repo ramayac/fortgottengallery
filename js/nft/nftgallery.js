@@ -4,6 +4,7 @@
  */
 $(function () {
 	'use strict'
+	var dataLoading = $('div#data-loading')
 	var dataContainer = $('div#data-container')
 	var searchInput = $('input#searchInput')
 	//var paginationContainer = $('#pagination-container')
@@ -19,7 +20,7 @@ $(function () {
 	}
 
 	function nftsTemplate(nftJson) {
-		var rows = $('<div class="row row-cols-5"></div>')
+		var rows = $('<div class="row row-cols-4"></div>')
 
 		$.each(nftJson, function (_, nftElement) {
 			var thumbnail = $('<img class="card-img-top">')
@@ -45,7 +46,7 @@ $(function () {
 			var card = $('<div class="card shadow-sm">')
 				.append(thumbnail)
 				.append(cardBody)
-				.append(btn)
+				//.append(btn)
 
 			var col = $('<div class="col"></div>')
 				.append(card)
@@ -65,21 +66,22 @@ $(function () {
 		"11 Face Decoration_perc",
 		"12 Face Cover_perc","13 Atmosphere_perc","14 Special_perc"];
 
-	NFTS = NFTS.sort(() => Math.random() - 0.5)
+	//NFTS = NFTS.sort(() => Math.random() - 0.5)
 	var col = nftsTemplate(NFTS.slice(0, 20));
 	dataContainer.html(col);
+	dataLoading.hide();
 
-	searchInput.bind("enterKey", function (e) {
-		if(searchInput.val().length > 2){
-			let filteredNFT = searchByText(NFTS, searchInput.val(), EXCLUDE_FROM_SEARCH)
-			var col = nftsTemplate(filteredNFT);
-			dataContainer.html(col);
-		}
-	});
-
-	searchInput.keyup(function (e) {
-		if (e.keyCode == 13) {
-			$(this).trigger("enterKey");
+	searchInput.on("keyup", function (e) {
+		if(e.key === "Enter"){
+			if(searchInput.val().length > 2){
+				dataContainer.hide();
+				dataLoading.show();
+				let filteredNFT = searchByText(NFTS, searchInput.val(), EXCLUDE_FROM_SEARCH);
+				var col = nftsTemplate(filteredNFT);
+				dataContainer.html(col);
+				dataLoading.hide();
+				dataContainer.show();
+			}
 		}
 	});
 
