@@ -55,14 +55,26 @@ $(function () {
 		return rows
 	};
 
+	var EXCLUDE_FROM_SEARCH = [
+		"image", "15 Website","16 Copyright",
+		"00 Episode_perc","01 Kid Number_perc",
+		,"02 Region_perc","03 Camp_perc",
+		"04 Role_perc","05 Body_perc",
+		"06 Clothing_perc","07 Hat_perc","08 Neck_perc",
+		"09 Accessory_perc","10 Mask_perc",
+		"11 Face Decoration_perc",
+		"12 Face Cover_perc","13 Atmosphere_perc","14 Special_perc"];
+
 	NFTS = NFTS.sort(() => Math.random() - 0.5)
 	var col = nftsTemplate(NFTS.slice(0, 20));
 	dataContainer.html(col);
 
 	searchInput.bind("enterKey", function (e) {
-		let filteredNFT = searchByText(NFTS, searchInput.val())
-		var col = nftsTemplate(filteredNFT);
-		dataContainer.html(col);
+		if(searchInput.val().length > 2){
+			let filteredNFT = searchByText(NFTS, searchInput.val(), EXCLUDE_FROM_SEARCH)
+			var col = nftsTemplate(filteredNFT);
+			dataContainer.html(col);
+		}
 	});
 
 	searchInput.keyup(function (e) {
@@ -70,6 +82,7 @@ $(function () {
 			$(this).trigger("enterKey");
 		}
 	});
+
 	/*paginationContainer.pagination({
 		dataSource: NFTS,
 		pageSize: 30,
