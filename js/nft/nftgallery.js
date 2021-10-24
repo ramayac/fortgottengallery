@@ -7,7 +7,7 @@ $(function () {
 	var dataLoading = $('div#data-loading')
 	var dataContainer = $('div#data-container')
 	var searchInput = $('input#searchInput')
-	//var paginationContainer = $('#pagination-container')
+	var filterMenu = $('ul#filterMenu')
 
 	function searchByText(collection, text, exclude) {
 		return _.filter(collection, _.flow(
@@ -21,7 +21,6 @@ $(function () {
 
 	function nftsTemplate(nftJson) {
 		var rows = $('<div class="row row-cols-4"></div>')
-
 		$.each(nftJson, function (_, nftElement) {
 			var card = $(`
 			<div class="col">
@@ -46,6 +45,38 @@ $(function () {
 		return rows
 	};
 
+	function renderFilterCheckboxes(key, element){
+		var htmlLi = '';
+		$.each(element, function (attr, element) {
+			var li = `<li>
+				<input class="form-check-input" type="checkbox" value="" id="chk${key}${attr}">
+				<label class="form-check-label" for="chk${key}${attr}">
+						${attr} 
+						- <span class="badge bg-primary">${element}</span>
+						- <span class="badge bg-secondary">0%</span>
+				</label>
+			</li>`;
+			htmlLi += li;
+		});
+		return htmlLi;
+	}
+
+	function renderFilters(filter){
+		filterMenu.remove('li')
+		$.each(filter, function (key, element) {
+			var id = key.split(' ')[0];
+			var name = key.split(' ')[1];
+			var htmlElements = renderFilterCheckboxes(key, element);
+			var li = $(`
+			<li class="nav-item">
+				<a class="nav-link" data-bs-toggle="collapse" href="#submenu${id}">${name}</a>
+				<ul class="submenu collapse" id="submenu${id}">${htmlElements}</ul>
+			</li>
+			`)
+			filterMenu.append(li)
+		})
+	}
+
 	var EXCLUDE_FROM_SEARCH = [
 		"image", "15 Website","16 Copyright",
 		"00 Episode_perc","01 Kid Number_perc",
@@ -56,7 +87,9 @@ $(function () {
 		"11 Face Decoration_perc",
 		"12 Face Cover_perc","13 Atmosphere_perc","14 Special_perc"];
 
+	
 	//NFTS = NFTS.sort(() => Math.random() - 0.5)
+	renderFilters(FILTERS);
 	var col = nftsTemplate(NFTS.slice(0, 20));
 	dataContainer.html(col);
 	dataLoading.hide();
