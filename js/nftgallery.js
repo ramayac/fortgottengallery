@@ -28,7 +28,7 @@ $(function () {
 		var rows = $('<div class="row row-cols-4"></div>')
 		$.each(nftJson, function (_, nftElement) {
 			var card = $(`
-			<div class="col">
+			<div class="col mb-2">
 				<div class="card shadow-sm">
 					<img class="card-img-top"
 					src="${nftElement.image}" 
@@ -53,7 +53,7 @@ $(function () {
 	function renderFilterCheckboxes(key, element){
 		var htmlLi = ''
 		$.each(element, function (attr, element) {
-			var li = `<li>
+			var li = `<li class="mx-4">
 				<input data-key="${key}:${attr}"
 				id="${key}:${attr}Radios"
 				name="${key}Radios"
@@ -78,7 +78,7 @@ $(function () {
 			var li = $(`
 			<li class="nav-item">
 				<a class="nav-link" data-bs-toggle="collapse" href="#submenu${id}">${name}</a>
-				<ul class="submenu collapse" id="submenu${id}">${htmlElements}</ul>
+				<ul class="submenu collapse list-unstyled" id="submenu${id}">${htmlElements}</ul>
 			</li>
 			`)
 			filterMenu.append(li)
@@ -141,7 +141,7 @@ $(function () {
 		$(filterMenu).find('input:radio:checked').each(function (ele) {
 			$(this).prop('checked', false)
 		});
-		var col = nftsTemplate(NFTS.slice(0, 14))
+		var col = nftsTemplate(NFTS.slice(0, 12))
 		dataContainer.html(col)
 		dataLoading.hide()
 	}
