@@ -16,7 +16,11 @@ $(function () {
 				_.some, _,
 				_.flow(_.toLower, _.partial(_.includes, _, _.toLower(text), 0))
 			)
-		));
+		))
+	}
+
+	function searchByElement(collection, elements){
+		return _.filter(collection, elements)
 	}
 
 	function nftsTemplate(nftJson) {
@@ -46,26 +50,29 @@ $(function () {
 	};
 
 	function renderFilterCheckboxes(key, element){
-		var htmlLi = '';
+		var htmlLi = ''
 		$.each(element, function (attr, element) {
 			var li = `<li>
-				<input class="form-check-input" type="checkbox" value="" id="chk${key}${attr}">
-				<label class="form-check-label" for="chk${key}${attr}">
+				<input data-key="${key}:${attr}"
+				id="${key}:${attr}Radios"
+				name="${key}Radios"
+				class="form-check-input" type="radio" value="">
+				<label class="form-check-label" 
+				style="font-size: 0.7rem!important;">
 						${attr} 
 						- <span class="badge bg-primary">${element}</span>
-						- <span class="badge bg-secondary">0%</span>
 				</label>
-			</li>`;
-			htmlLi += li;
-		});
-		return htmlLi;
+			</li>`
+			htmlLi += li
+		})
+		return htmlLi
 	}
 
 	function renderFilters(filter){
 		filterMenu.remove('li')
 		$.each(filter, function (key, element) {
-			var id = key.split(' ')[0];
-			var name = key.split(' ')[1];
+			var id = key.split(/ (.+)/)[0];
+			var name = key.split(/ (.+)/)[1];
 			var htmlElements = renderFilterCheckboxes(key, element);
 			var li = $(`
 			<li class="nav-item">
@@ -85,28 +92,55 @@ $(function () {
 		"06 Clothing_perc","07 Hat_perc","08 Neck_perc",
 		"09 Accessory_perc","10 Mask_perc",
 		"11 Face Decoration_perc",
-		"12 Face Cover_perc","13 Atmosphere_perc","14 Special_perc"];
+		"12 Face Cover_perc","13 Atmosphere_perc","14 Special_perc"]
 
 	
 	//NFTS = NFTS.sort(() => Math.random() - 0.5)
-	renderFilters(FILTERS);
-	var col = nftsTemplate(NFTS.slice(0, 20));
-	dataContainer.html(col);
-	dataLoading.hide();
+	renderFilters(FILTERS)
 
 	searchInput.on("keyup", function (e) {
 		if(e.key === "Enter"){
 			if(searchInput.val().length > 2){
-				dataContainer.hide();
-				dataLoading.show();
-				let filteredNFT = searchByText(NFTS, searchInput.val(), EXCLUDE_FROM_SEARCH);
-				var col = nftsTemplate(filteredNFT);
-				dataContainer.html(col);
-				dataLoading.hide();
-				dataContainer.show();
+				dataContainer.hide()
+				dataLoading.show()
+				let filteredNFT = searchByText(NFTS, searchInput.val(), EXCLUDE_FROM_SEARCH)
+				var col = nftsTemplate(filteredNFT)
+				dataContainer.html(col)
+				dataLoading.hide()
+				dataContainer.show()
 			}
 		}
-	});
+	})
+
+	filterMenu.on("click", function(e){
+		var checked = $(filterMenu).find('input:radio:checked')
+		if(checked !== undefined && checked.length < 1) {
+			resetSearch();
+			return;
+		}
+		
+		var searchFilters = {};
+		dataLoading.show()
+		$(filterMenu).find('input:radio:checked').each(function (ele) {
+			var attr = $(this).data('key').split(':');
+			console.log(attr);
+			searchFilters[attr[0]] = attr[1];
+		});
+		
+		var result = searchByElement(NFTS, searchFilters)
+		//result = [...result, searchByElement(NFTS, searchFilters)];
+		var col = nftsTemplate(result)
+		dataContainer.html(col)
+		dataLoading.hide()
+	})
+
+	function resetSearch(){
+		var col = nftsTemplate(NFTS.slice(0, 20))
+		dataContainer.html(col)
+		dataLoading.hide()
+	}
+
+	resetSearch();
 
 	/*paginationContainer.pagination({
 		dataSource: NFTS,
