@@ -8,6 +8,7 @@ $(function () {
 	var dataContainer = $('div#data-container')
 	var searchInput = $('input#searchInput')
 	var filterMenu = $('ul#filterMenu')
+	var btnClearFilters = $('button#clear-filters');
 
 	function searchByText(collection, text, exclude) {
 		return _.filter(collection, _.flow(
@@ -29,7 +30,7 @@ $(function () {
 			var card = $(`
 			<div class="col">
 				<div class="card shadow-sm">
-					<img class="card-img-top" loading="lazy" 
+					<img class="card-img-top"
 					src="${nftElement.image}" 
 					alt="${nftElement.name}" 
 					width="250" height="250">
@@ -135,10 +136,19 @@ $(function () {
 	})
 
 	function resetSearch(){
-		var col = nftsTemplate(NFTS.slice(0, 20))
+		dataLoading.show()
+		searchInput.val('')
+		$(filterMenu).find('input:radio:checked').each(function (ele) {
+			$(this).prop('checked', false)
+		});
+		var col = nftsTemplate(NFTS.slice(0, 14))
 		dataContainer.html(col)
 		dataLoading.hide()
 	}
+
+	btnClearFilters.on("click", function(){
+		resetSearch()
+	})
 
 	resetSearch();
 
