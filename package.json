@@ -1,35 +1,15 @@
 {
-  "name": "blueimp-gallery",
-  "version": "3.4.0",
-  "title": "blueimp Gallery",
-  "description": "blueimp Gallery is a touch-enabled, responsive and customizable image and video gallery, carousel and lightbox, optimized for both mobile and desktop web browsers. It features swipe, mouse and keyboard navigation, transition effects, slideshow functionality, fullscreen support and on-demand content loading and can be extended to display additional content types.",
+  "name": "fortgotten-gallery",
+  "version": "0.5.0",
+  "title": "",
+  "description": "",
   "keywords": [
-    "image",
-    "video",
-    "gallery",
-    "carousel",
-    "lightbox",
-    "mobile",
-    "desktop",
-    "touch",
-    "responsive",
-    "swipe",
-    "mouse",
-    "keyboard",
-    "navigation",
-    "transition",
-    "effects",
-    "slideshow",
-    "fullscreen"
+    "fortgotten"
   ],
-  "homepage": "https://github.com/blueimp/Gallery",
+  "homepage": "https://github.com/",
   "author": {
-    "name": "Sebastian Tschan",
-    "url": "https://blueimp.net"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/blueimp/Gallery.git"
+    "name": "Rodrigo Amaya",
+    "url": "https://twitter.com/ramayac"
   },
   "license": "MIT",
   "devDependencies": {
@@ -57,7 +37,6 @@
   },
   "eslintConfig": {
     "extends": [
-      "blueimp",
       "plugin:jsdoc/recommended",
       "plugin:prettier/recommended"
     ],
