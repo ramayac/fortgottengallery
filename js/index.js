@@ -3,7 +3,7 @@
  * Copyright 2021, @ramayac
  */
 var jquery = require("jquery")
-window.$ = window.jQuery = jquery
+window.$ = window.jQuery = jquery;
 
 import * as _ from "lodash";
 import { NFTS, FILTERS } from "./stats";
@@ -32,12 +32,11 @@ $(function () {
 	function nftsTemplate(nftJson) {
 		var rows = $('<div class="row row-cols-4"></div>')
 		$.each(nftJson, function (_, nftElement) {
-			var card = $(`
-			<div class="col mb-2">
+			var card = $(`<div class="col mb-2">
 				<!-- Card -->
 				<div class="card shadow-sm">
 					<img class="card-img-top"
-					src="${nftElement.image}" 
+					src="img/FortGottenEp01Kid ${nftElement['01 Kid Number']}.jpg" 
 					alt="${nftElement.name}" 
 					width="250" height="250">
 					<div class="card-body">
@@ -60,11 +59,14 @@ $(function () {
 									<div class="container">
 									<div class="row">
 										<div class="col text-center">
-											<img class="rounded float-left" src="${nftElement.image}" alt="${nftElement.name}" width="450" height="450">
+											<img class="rounded float-left" src="img/FortGottenEp01Kid ${nftElement['01 Kid Number']}.jpg" alt="${nftElement.name}" width="450" height="450">
 											<br/>
 											<div class="text-muted">
-												${nftElement['00 Episode']} - fort-gotten.com - &#169;2021
+												${nftElement['00 Episode']} - ${nftElement.name} - fort-gotten.com - &#169;2021
 											</div>
+											<br/>
+											<a type="button" href="https://cnft.io/marketplace.php?s=${nftElement.name}"
+											 class="btn btn-primary" target="_blank" >View in CNFT.io</a>
 										</div>
 										<div class="col">
 											<table class="table table-borderless table-sm">
@@ -79,6 +81,11 @@ $(function () {
 													<tr>
 														<th scope="row">Rarity Score</th>
 														<td>${nftElement['rarityScore']}</td>
+														<td></td>
+													</tr>
+													<tr>
+														<th scope="row">Asset Name</th>
+														<td>${nftElement['name']}</td>
 														<td></td>
 													</tr>
 													<tr>
