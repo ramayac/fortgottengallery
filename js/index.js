@@ -2,8 +2,13 @@
  * Fort Gotten Gallery
  * Copyright 2021, @ramayac
  */
+var jquery = require("jquery")
+window.$ = window.jQuery = jquery
+
+import * as _ from "lodash";
+import { NFTS, FILTERS } from "./stats";
+
 $(function () {
-	'use strict'
 	var dataLoading = $('div#data-loading')
 	var dataContainer = $('div#data-container')
 	var searchInput = $('input#searchInput')
@@ -202,17 +207,6 @@ $(function () {
 		})
 	}
 
-	var EXCLUDE_FROM_SEARCH = [
-		"image", "15 Website", "16 Copyright",
-		"00 Episode_perc", "01 Kid Number_perc",
-		"02 Region_perc", "03 Camp_perc",
-		"04 Role_perc", "05 Body_perc",
-		"06 Clothing_perc", "07 Hat_perc", "08 Neck_perc",
-		"09 Accessory_perc", "10 Mask_perc",
-		"11 Face Decoration_perc",
-		"12 Face Cover_perc", "13 Atmosphere_perc", "14 Special_perc"]
-
-
 	//NFTS = NFTS.sort(() => Math.random() - 0.5)
 	renderFilters(FILTERS)
 
@@ -270,14 +264,4 @@ $(function () {
 
 	resetSearch();
 
-	/*paginationContainer.pagination({
-		dataSource: NFTS,
-		pageSize: 30,
-		callback: function (data, pagination) {
-			// template method of yourself
-			var col = nftsTemplate(data);
-			dataContainer.html(col);
-		}
-	})*/
-
-})
+});

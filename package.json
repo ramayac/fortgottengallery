@@ -19,7 +19,6 @@
     "eslint-config-prettier": "8",
     "eslint-plugin-jsdoc": "36",
     "eslint-plugin-prettier": "4",
-    "jquery": "1",
     "prettier": "2",
     "stylelint": "13",
     "stylelint-config-prettier": "8",
@@ -56,9 +55,11 @@
     "trailingComma": "none"
   },
   "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html --public-url ./",
     "test": "stylelint '**/*.css' && eslint .",
     "build:js": "cd js && uglifyjs jquery.js nftgallery.js stats.js --ie8 -c -m -o nftgallery.min.js --source-map url=nftgallery.min.js.map",
-    "build": "npm run build:js",
+    "build:old": "npm run build:js",
     "preversion": "npm test",
     "version": "npm run build && git add -A js css",
     "postversion": "git push --tags origin master master:gh-pages && npm publish"
@@ -72,5 +73,10 @@
     "js/*.js",
     "js/*.js.map"
   ],
-  "main": "index.html"
+  "main": "index.js",
+  "dependencies": {
+    "jquery": "^1.12.4",
+    "lodash": "^4.17.21",
+    "parcel": "^2.0.0"
+  }
 }
