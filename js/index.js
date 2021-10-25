@@ -36,7 +36,7 @@ $(function () {
 				<!-- Card -->
 				<div class="card shadow-sm">
 					<img class="card-img-top"
-					src="img/FortGottenEp01Kid ${nftElement['01 Kid Number']}.jpg" 
+					src="thumbs/FortGottenEp01Kid ${nftElement['01 Kid Number']}.jpg" 
 					alt="${nftElement.name}" 
 					width="250" height="250">
 					<div class="card-body">
@@ -59,7 +59,7 @@ $(function () {
 									<div class="container">
 									<div class="row">
 										<div class="col text-center">
-											<img class="rounded float-left" src="img/FortGottenEp01Kid ${nftElement['01 Kid Number']}.jpg" alt="${nftElement.name}" width="450" height="450">
+											<img class="rounded float-left" src="thumbs/FortGottenEp01Kid ${nftElement['01 Kid Number']}.jpg" alt="${nftElement.name}" width="450" height="450">
 											<br/>
 											<div class="text-muted">
 												${nftElement['00 Episode']} - ${nftElement.name} - fort-gotten.com - &#169;2021
@@ -189,8 +189,7 @@ $(function () {
 				class="form-check-input" type="radio" value="">
 				<label class="form-check-label" 
 				style="font-size: 0.7rem!important;">
-						${attr} 
-						- <span class="badge bg-primary">${element}</span>
+						${attr} <span class="badge bg-primary">${element}</span>
 				</label>
 			</li>`
 			htmlLi += li
