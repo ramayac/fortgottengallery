@@ -218,10 +218,11 @@ $(function () {
 
 	searchInput.on("keyup", function (e) {
 		if (e.key === "Enter") {
-			if (searchInput.val().length > 2) {
+			if (searchInput.val().length > 0) {
 				dataContainer.hide()
 				dataLoading.show()
-				let filteredNFT = searchByText(NFTS, searchInput.val(), EXCLUDE_FROM_SEARCH)
+				//let filteredNFT = searchByText(NFTS, searchInput.val(), EXCLUDE_FROM_SEARCH)
+				let filteredNFT = searchByElement(NFTS, {'01 Kid Number': searchInput.val()})
 				var col = nftsTemplate(filteredNFT)
 				dataContainer.html(col)
 				dataLoading.hide()
