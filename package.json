@@ -73,7 +73,6 @@
     "js/*.js",
     "js/*.js.map"
   ],
-  "main": "index.js",
   "dependencies": {
     "jquery": "^1.12.4",
     "lodash": "^4.17.21",
